@@ -19,11 +19,10 @@
 .nav-bar {
   width: 100%;
   height: 66px;
-  background-color: #002766;
+  background-color: #fff;
 }
 
 .logo-tab {
-  position: absolute;
   left: 22px;
   top: 12px;
   font-size: 32px;
@@ -37,6 +36,13 @@
   right: 22px;
   color: white;
   cursor: pointer;
+  background-color: black;
+  padding: 12px;
+  font-size: 15px;
+  border-radius: 1.3rem;
+  float: right;
+  white-space: pre-line;
+  margin: -7px;
 }
 
 ::-webkit-scrollbar {
@@ -47,12 +53,14 @@
 /* Login Page */
 
 #login-page {
-  background-image: linear-gradient(#40a9ff, #096dd9);
+  background: linear-gradient(-180deg, rgba(0,0,0,0.50) 0%, rgba(255,255,255,0.50) 100%);
+  /* background-image: radial-gradient(circle, #000000, #3b3b3b, #777777, #b9b9b9, #ffffff); */
   position: absolute;
   top: 0px;
   bottom: 0px;
   left: 0px;
   right: 0px;
+  /* background-color: #f4f4f4; */
 }
 
 #login-card {
@@ -63,16 +71,22 @@
   padding-bottom: 66px;
   width: 420px;
   text-align: center;
-  background-color: white;
+  background-color: black;
   border-radius: 22px;
+  color: white;
 }
 
 .login-button {
   cursor: pointer;
-  color: white;
+  color: black !important;
   padding: 12px;
   border-radius: 8px;
   display: inline-block;
+  background-color: #fff !important;
+}
+
+.login-button:hover {
+  background-color: #c0c0c0 !important;
 }
 
 .facebook {
@@ -98,4 +112,27 @@
   position: relative;
   left: calc(50vw - 33px);
   top: calc(50vh - 22px);
+}
+
+.ce-chat-title-container {
+  background-color: black;
+  /* border-radius: 1rem; */
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.ce-chat-title-text{
+  color: white;
+}
+
+.ce-chat-subtitle-text{
+  display: none;
+}
+
+.ce-chat-card .ce-chat-title-text{
+  color: black;
+}
+
+.ce-my-message-bubble {
+  background-color: black !important;
 }

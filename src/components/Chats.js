@@ -1,7 +1,8 @@
-import React, {useRef, useState, useEffect} from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom';
 import { ChatEngine } from "react-chat-engine";
 import { auth } from '../firebase';
+import login from './logo.jpg';
 
 import { useAuth } from "../contexts/AuthContext";
 import axios from "axios";
@@ -20,12 +21,12 @@ const Chats = () => {
     const getFile = async (url) => {
         const response = await fetch(url);
         const data = await response.blob();
-        
-        return new File([data], "userPhoto.jpg", {type: 'image/jpeg'});
+
+        return new File([data], "userPhoto.jpg", { type: 'image/jpeg' });
     }
 
     useEffect(() => {
-        if(!user) {
+        if (!user) {
             history.push('/');
             return;
         }
@@ -37,46 +38,49 @@ const Chats = () => {
                 'user-secret': user.uid
             }
         })
-        .then(() => {
-            setLoading(false);
-        })
-        .catch(() => {
-            let formdata = new FormData();
-            formdata.append('email', user.email);
-            formdata.append('username', user.email);
-            formdata.append('secret', user.uid);
+            .then(() => {
+                setLoading(false);
+            })
+            .catch(() => {
+                let formdata = new FormData();
+                formdata.append('email', user.email);
+                formdata.append('username', user.email);
+                formdata.append('secret', user.uid);
 
-            getFile(user.photoURL)
-                .then((avatar) => {
-                    formdata.append('avatar', avatar, avatar.name)
+                getFile(user.photoURL)
+                    .then((avatar) => {
+                        formdata.append('avatar', avatar, avatar.name)
 
-                    axios.post('https://api.chatengine.io/users',
-                        formdata, 
-                        { headers: { 'private-key': process.env.REACT_APP_CHAT_ENGINE_KEY } }
-                    )
-                    .then(() => setLoading(false))
-                    .catch((error) => console.log(error))
-                })
-        })
+                        axios.post('https://api.chatengine.io/users',
+                            formdata,
+                            { headers: { 'private-key': process.env.REACT_APP_CHAT_ENGINE_KEY } }
+                        )
+                            .then(() => setLoading(false))
+                            .catch((error) => console.log(error))
+                    })
+            })
     }, [user, history]);
 
-    if(!user || loading) return 'Loading...'
+    if (!user || loading) return 'Loading...'
 
     return (
         <div className="chats-page">
             <div className="nav-bar">
                 <div className="logo-tab">
-                    myChat
+                    {/* myChat */}
+                    <img src={login}></img>
                 </div>
                 <div onClick={handleLogout} className="logout-tab">
                     Logout
                 </div>
             </div>
-            <ChatEngine 
+            <ChatEngine
                 height='calc(100vh - 66px)'
                 projectID={process.env.REACT_APP_CHAT_ENGINE_ID}
                 userName={user.email}
                 userSecret={user.uid}
+                // renderIceBreaker={() => <div/>}
+                // renderChatSettings={() => <div/>}
             />
 
         </div>
